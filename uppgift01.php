@@ -18,6 +18,7 @@ else{
 $namn=filter_input(INPUT_GET, 'namn'); 
 echo "<h1>Valkommen ${namn}!</hl>"; 
 echo "<p>Namnet $namn innehaller ", strlen($namn), " tecken.<p>"; 
+echo "<p>Namnet $namn består av ", str_word_count($namn), "ord.";
 } 
 ?>
 
