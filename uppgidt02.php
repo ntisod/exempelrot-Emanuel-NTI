@@ -12,7 +12,7 @@ define("cars", [
   "Alfa Romeo",
   "BMW",
   "Toyota",
-  "Mazda",
+  "Mazda", 
   "Honda",
   "Volkswagen",
   "Mitshubishi",
