@@ -1,5 +1,4 @@
 <?php
-include("../templates/head.php");
 require("../includes/wsp1-functions.php"); //TL testUser 7/4
 
 // define variables and set to empty values
@@ -27,13 +26,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pw = $_POST["pw"];
 
   }
-
-  echo "Antal fel: $errors" ;
-    
+  
   //Kontrollera om det inte finns errors
   if($errors<1){
     //Hämta db-inställningar
-    require("..\includes\settings.php");
+    require("../includes/settings.php");
     
     //Hämta hashat lösenord från DB
     try {
@@ -49,17 +46,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       // set the resulting array to associative
       $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
 
-      echo "Hämtat lösenord:" . $resultat["password"];
-
       //Kolla om inskrivet lösenord stämmer överens med lösenordet i DB.
       $verified = password_verify($pw, $resultat["password"]);
  
       //Låt olika saker hända beroende på om man skrivit rätt lösenord eller inte
       if($verified){
-          echo "Grattis, du är inloggad!";
+          //Ta oss till en annan sida
+          header("Location: welcome.php");   
       } else{
           echo "Fel lösenord, eller användarnamn.";
       }
+
 
 
     } catch(PDOException $e) {
@@ -67,18 +64,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $conn = null;
-    //Ta oss till en annan sida
-    //header("Location: welcome.php");   
   }
-
 }
 
 function test_input($data) {
   $data = trim($data);
-  $data = stripslashes($data);
+  $data = stripslashes($data)
+
+
+
+  
   $data = htmlspecialchars($data);
   return $data;
 } 
+$title = "Logga in"
+
+include("../templates/head.php");
 
 ?>
 
@@ -103,10 +104,6 @@ function test_input($data) {
 </form>
 
 <?php
-echo "<h2>Din inmatning:</h2>";
-echo $username;
-echo "<br>";
-echo $pw;
 
 include "../templates/foot.php";
 
@@ -114,4 +111,3 @@ include "../templates/foot.php";
 
 </body>
 </html>
-

@@ -1,6 +1,6 @@
 <?php
 
 $servername = "localhost";
-$dbuser = "phpuser";
+$dbuser = "emfa_emfa";
 $dbpw = "(lx](RHWURFTM0fn";
-$dbname = "wsp22";
+$dbname = "emfa_wsp";

@@ -1,5 +1,4 @@
 <?php
-include("../templates/head.php");
 require("../includes/wsp1-functions.php"); //TL testUser 7/4
 
 // define variables and set to empty values
@@ -36,8 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $errors++;
     }
   }
-
-  echo "Antal fel: $errors" ;
     
   //Kontrollera om det inte finns errors
   if($errors<1){
@@ -52,18 +49,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $sql = "INSERT INTO users (username, password) VALUES ('$username', '$hashed_pw');";
       // use exec() because no results are returned
       $conn->exec($sql);
-      echo "Ny post skapad.";
-
-
+  
+      //Stäng databasanslutningen
+      $conn = null;
+      //Ta oss till en annan sida
+      header("Location: welcome.php");   
+    
     } catch(PDOException $e) {
       echo $sql . "<br>" . $e->getMessage();
     }
-
-    $conn = null;
-    //Ta oss till en annan sida
-    header("Location: welcome.php");   
   }
-
 }
 
 function test_input($data) {
@@ -72,6 +67,9 @@ function test_input($data) {
   $data = htmlspecialchars($data);
   return $data;
 } 
+
+$title = "Registrera"
+include("../templates/head.php");
 
 ?>
 
@@ -101,17 +99,9 @@ function test_input($data) {
 </form>
 
 <?php
-echo "<h2>Din inmatning:</h2>";
-echo $username;
-echo "<br>";
-echo $pw;
-echo "<br>";
-echo $pwTest;
-
 include "../templates/foot.php";
 
 ?>
 
 </body>
 </html>
-
